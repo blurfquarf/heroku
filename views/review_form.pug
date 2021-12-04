@@ -95,8 +95,3 @@ block content
                     strong Summary:
                 textarea(class="w3-input w3-border" id="summary" placeholder='Summary' name='summary' required='true') #{undefined===review ? '' : review.summary}
             button(class="w3-button" type='submit') Create Review!
-
-        if errors
-            ul
-                for error in errors
-                    li!= error.msg
