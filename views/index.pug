@@ -1,0 +1,175 @@
+extends layout
+
+block content
+
+  style.
+    @media(max-width:975px){
+      #infoCookies{
+        height:200px;
+        margin:auto;
+      }
+    }
+
+  div(class="w3-display-container w3-wide" style="max-width:1500px")
+
+
+    div(class="w3-content w3-padding w3-center")
+      h1 There's truth in reviews
+      h4 Read. Write. Discover. Laptops.
+
+      // Slideshow container
+      div(id="foto" class="slideshow-container hide-small" style="margin-top:20px; ")
+        // Full-width images with number and caption text
+        .mySlides.fade
+          .numbertext 1 / 3
+          img(src='/images/surface.png' style='width:100%')
+          div(class="text" style="margin-bottom:10px")
+            a(href="/catalog/review/61ab83c7a6c42dc7fefa031e" style="text-decoration:none; color:black;") Go to this product review!
+        .mySlides.fade
+          .numbertext 2 / 3
+          img(src='/images/macbook.jpeg' style='width:100%')
+          div(class="text" style="margin-bottom:10px")
+            a(href="/catalog/review/61ab8224ddab07333205867d" style="text-decoration:none; color:black;") Go to this product review!
+        .mySlides.fade
+          .numbertext 3 / 3
+          img(src='/images/windows.jpg' style='width:100%')
+          div(class="text" style="margin-bottom:10px")
+            a(href="/catalog/review/61ab82a3ddab073332058698" style="text-decoration:none; color:black") Go to this product review!
+        // Next and previous buttons
+        a.prev(onclick='plusSlides(-1)') &#x276E;
+        a.next(onclick='plusSlides(1)') &#x276F;
+        br
+      // The dots/circles
+      div(style='text-align:center; padding-bottom:10px' class="hide-small")
+        span.dot(onclick='currentSlide(1)')
+        span.dot(onclick='currentSlide(2)')
+        span.dot(onclick='currentSlide(3)')
+
+
+
+
+      div(class="w3-content w3-padding w3-center")
+        div(class="w3-content w3-padding w3-center")
+          h1 Click here to find the reviews you're looking for!
+          div(class="w3-content w3-padding w3-center")
+            a(href="/catalog/reviews")
+              button(class="button-home") Reviews
+
+        if user
+          div(class="w3-content w3-padding w3-center")
+            h1 Or write your own review
+            div(class="w3-content w3-padding w3-center")
+              a(href="/catalog/review/create")
+                button(class="button-home w3-center ") Write my own review
+
+        if !user
+          div(class="w3-content w3-padding w3-center")
+            h1 Or write your own review
+            div(class="w3-content w3-padding w3-center")
+              a(href="/catalog/Login")
+                button(class="button-home w3-center ") Write my own review
+
+  div(class="notification-top-bar cookie" style="display:none" id="infoCookies")
+    div(class="w3-center")
+      h5(style="display:inline-block") This website uses cookies to make your site experience better!
+      button(class="w3-button icon" style="margin:5px; display:inline-block") I agree!
+    div(style="display:inline-block" class="w3-center")
+      button(id="btn"  class="w3-button" style="margin:5px; " onclick="loadDoc('/policy/cookiePolicy.xml')") Read more about our policy
+      p#A1
+
+
+
+
+  script.
+    var slideIndex = 1;
+    showSlides(slideIndex);
+
+    // Next/previous controls
+    function plusSlides(n) {
+      showSlides(slideIndex += n);
+    }
+
+    // Thumbnail image controls
+    function currentSlide(n) {
+      showSlides(slideIndex = n);
+    }
+
+    function showSlides(n) {
+      var i;
+      var slides = document.getElementsByClassName("mySlides");
+      var dots = document.getElementsByClassName("dot");
+      if (n > slides.length) {
+        slideIndex = 1
+      }
+      if (n < 1) {
+        slideIndex = slides.length
+      }
+      for (i = 0; i < slides.length; i++) {
+        slides[i].style.display = "none";
+      }
+      for (i = 0; i < dots.length; i++) {
+        dots[i].className = dots[i].className.replace(" active", "");
+      }
+      slides[slideIndex - 1].style.display = "block";
+      dots[slideIndex - 1].className += " active";
+    }
+
+  script.
+    function createCookie(name, value, days) {
+      if (days) {
+        var date = new Date();
+        date.setTime(date.getTime() + (days * 24 * 60 * 60 * 1000));
+        var expires = "; expires=" + date.toUTCString();
+      } else var expires = "";
+      document.cookie = name + "=" + value + expires + "; path=/";
+    }
+
+    function readCookie(name) {
+      var nameEQ = name + "=";
+      var ca = document.cookie.split(';');
+      for (var i = 0; i < ca.length; i++) {
+        var c = ca[i];
+        while (c.charAt(0) == ' ') c = c.substring(1, c.length);
+        if (c.indexOf(nameEQ) == 0) return c.substring(nameEQ.length, c.length);
+      }
+      return null;
+    }
+
+    function eraseCookie(name) {
+      createCookie(name, "", -1);
+    }
+
+    $(function () {
+
+      if (readCookie('CodefireOnce') == null) {
+        $(".cookie").css("display", "block");
+      }
+      $("body").on("click", ".icon", function () {
+        $(this).closest("div.cookie").remove();
+        createCookie('CodefireOnce', 'true', 7);
+      });
+    });
+
+
+
+  script.
+    function loadDoc(url) {
+      var width = $(window).width();
+      var elem1 = document.getElementById("infoCookies");
+      if(width>=975){
+        elem1.style.height = 150 + "px";
+      }
+      else{
+        elem1.style.height = 300+"px";
+      }
+      var elem2= document.getElementById("btn");
+      elem2.style.display = 'none';
+      var xhttp = new XMLHttpRequest();
+      xhttp.onreadystatechange = function () {
+        if (this.readyState == 4 && this.status == 200) {
+          document.getElementById('A1').innerHTML = this.responseText;
+        }
+      };
+      xhttp.open("GET", url, true);
+      xhttp.send();
+    }

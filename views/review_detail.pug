@@ -1,0 +1,11 @@
+extends layout
+
+block content
+
+    div(class="w3-container w3-white w3-margin w3-padding-large" style="border-radius:.5rem; box-shadow: 0 3px 10px rgb(0 0 0 / 0.2); margin:auto;")
+        div(class="w3-center")
+            h3 #{review.title}
+        h5.rbd-heading #[strong Product type:] #{review.product}
+        h5.rbd-heading #[strong Summary:] #{review.summary}
+        h5.rbd-heading #[strong Written by:] #{review.author}
+        h5.rbd-heading #[strong Date:] #{review.date}

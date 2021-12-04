@@ -1,0 +1,102 @@
+extends layout
+
+block content
+    style.
+        @media (min-width: 975px) {
+            label{
+                margin:10px;
+            }
+            #summary {
+                width: 900px;
+                height: 600px;
+                margin:10px;
+                border-radius:.25rem;
+            }
+            #title {
+                max-width:500px;
+                width:100%;
+                margin:10px;
+            }
+            #product {
+                min-width: 100px;
+                border-radius: .25rem;
+                border: 1px solid #ccc;
+                margin:10px;
+            }
+        }
+
+        @media (max-width: 975px) {
+            #summary {
+                height: 400px;
+                padding: 10px;
+                border-radius: .25rem;
+            }
+
+            #title {
+                width: 100%;
+                max-width:500px;
+                padding: 10px;
+            }
+
+            #product {
+                min-width: 100px;
+                border-radius: .25rem;
+                border: 1px solid #ccc;
+                padding: 10px;
+                margin:10px;
+            }
+
+        }
+
+        @media (max-width: 600px) {
+            #summary {
+                height: 400px;
+                padding:10px;
+                border-radius:.25rem;
+            }
+            #title{
+                width:100%;
+                padding:10px;
+            }
+            #product {
+                min-width:100px;
+                border-radius:.25rem;
+                border:1px solid #ccc;
+                padding:10px;
+                margin:10px;
+            }
+        }
+    div(class="w3-container w3-content" style="padding:10px; width:100%")
+        h1(class="w3-center")= title
+
+        div(class="form-group")
+            a(href="/catalog/add_laptop")
+                button(class="w3-button" type='submit') Add new laptop
+
+
+        form(method='POST' action='')
+            div(class="form-group")
+                label(for='product')
+                    strong Laptop name:
+                select(id="product" placeholder='Select laptop' name='product' required='true')
+                    - laptops.sort(function(a, b) {let textA = a.name.toUpperCase(); let textB = b.name.toUpperCase(); return (textA < textB) ? -1 : (textA > textB) ? 1 : 0;});
+                    for laptop in laptops
+                        if review
+                            option(value=laptop.name selected=(laptop._id.toString() === review.laptop._id.toString() ? 'selected' : false) ) #{laptop.name}
+                        else
+                            option(value=laptop.name) #{laptop.name}
+
+            div(class="form-group")
+                label(class="w3-col" for='title')
+                    strong Review title:
+                input(class="w3-input w3-border" style="" id="title" type='text', placeholder='Name of review' name='title' required='true' value=(undefined===review ? '' : review.title) )
+            div(class="form-group")
+                label(class="w3-col" for='summary')
+                    strong Summary:
+                textarea(class="w3-input w3-border" id="summary" placeholder='Summary' name='summary' required='true') #{undefined===review ? '' : review.summary}
+            button(class="w3-button" type='submit') Create Review!
+
+        if errors
+            ul
+                for error in errors
+                    li!= error.msg

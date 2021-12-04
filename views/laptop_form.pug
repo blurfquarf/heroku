@@ -1,0 +1,12 @@
+extends layout
+
+block content
+    h1=title
+    form(method='POST' action='')
+        div(class="form-group")
+            label(for='name') Laptop name:
+            input(class="w3-input w3-border" id="name" type='text' placeholder='name' name='name' required='true' value=(undefined===laptop ? '' : laptop.name) )
+        div(class="form-group")
+            label(for='price') Laptop price in euros (€):
+            input(class="w3-input w3-border" id="price" type='text' placeholder='price' name='price' required='true' value=(undefined===laptop ? '' : laptop.price))
+        button(class="w3-button" type='submit') Add laptop!

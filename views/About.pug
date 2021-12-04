@@ -1,0 +1,67 @@
+extends layout
+
+block content
+    script(src="/javascripts/mapquest.js")
+    link(type="text/css" rel="stylesheet" href="https://api.mqcdn.com/sdk/mapquest-js/v1.3.2/mapquest.css")
+
+    style.
+        @media(min-width:975px){
+            #map {
+                width: 800px;
+                height: 350px;
+            }
+        }
+
+        @media (max-width: 975px) {
+            #map {
+                width: 100%;
+                height: 350px;
+            }
+        }
+
+
+    div(class="w3-container w3-content w3-padding-64" style="max-width:800px" )
+        div(class="w3-row w3-padding-32")
+            div(class="w3-container w3-content w3-center")
+                h3(class="w3-wide") About Us
+                p(class="w3-opacity") Maxou & Matthieu
+                p(class="w3-justify")
+                | We are two students who study Electronic-Ict Engineering at the Ghent Technology Campus by the KU Leuven. We worked together to design and create this website because we wanted to make it easier for people to not only share their experiences with
+                | certain laptops, but also to make it easier for others to read the experiences people have had with a product. So if you're interested in buying a laptop but you're not entirely sure whether you've found the right fit,
+                | take a look around and maybe you'll find a useful review. On the other hand, if you've had a great experience with a certain product then make sure to leave a review and help someone else find what they're missing!
+        div(class="w3-large w3-row w3-center w3-margin-top")
+                i(class="fa fa-map-marker" style="width:30px")
+                |   Technologiecampus KULeuven, Ghent, Belgium
+                br
+                i(class="fa fa-envelope" style="width:30px")
+                |   maxou.vanlauwe@student.kuleuven.be
+                br
+                i(class="fa fa-envelope" style="width:30px")
+                |   matthieu.delanghe@student.kuleuven.be
+                br
+        div(class="w3-row w3-center w3-margin-top" style="padding:5px")
+                div( id="map")
+
+
+
+    script.
+        var L;
+
+        window.onload = function () {
+            L.mapquest.key = 'MqA7TA6vwE2JycSPE7zpV9QVRX2z3ScP';
+
+            // 'map' refers to a <div> element with the ID map
+            var map = L.mapquest.map('map', {
+                center: [51.05977911511962, 3.708857383863192],
+                layers: L.mapquest.tileLayer('map'),
+                zoom: 12
+            });
+
+            L.marker([51.05977911511962, 3.708857383863192], {
+                icon: L.mapquest.icons.marker(),
+                draggable: false
+            }).bindPopup('Technologie Campus, Ghent').addTo(map)
+
+
+            map.addControl(L.mapquest.control());
+        }

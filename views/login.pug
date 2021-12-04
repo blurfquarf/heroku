@@ -1,0 +1,14 @@
+extends layout
+
+block content
+    div(class="w3-display-container" style="padding:10px")
+        h2(class="page-header") Login
+
+        form(method='post', action='/catalog/login')
+            div(class="form-group")
+                label(class="w3-col m4") Username
+                input(class="w3-input w3-border" name='username', type='text', placeholder='Enter Username')
+            div(class="form-group")
+                label(class="w3-col m4") Password
+                input(class="w3-input w3-border" name='password', type='password', placeholder='Enter Password')
+            input(class="w3-button" type='submit', name='submit', value='Login' style="border-radius:.25rem; ; margin-bottom:30px")
