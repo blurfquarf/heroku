@@ -15,7 +15,12 @@ var flash = require('connect-flash');
 var bcrypt = require('bcryptjs');
 var mongo = require('mongodb');
 //Set up mongoose connection
-var mongoDB = 'mongodb+srv://koekje:geefons20op20@tir-point.spdkv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority';
+
+var dev_db_url = 'mongodb+srv://koekje:geefons20op20@tir-point.spdkv.mongodb.net/myFirstDatabase?retryWrites=true&w=majority'
+var mongoDB = process.env.MONGODB_URI || dev_db_url;
+
+
+
 mongoose.connect(mongoDB, { useNewUrlParser: true, useUnifiedTopology: true});
 var db = mongoose.connection;
 db.on('error', console.error.bind(console, 'MongoDB connection error:'));
