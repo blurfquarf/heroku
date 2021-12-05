@@ -1,5 +1,4 @@
 # Starting webapp
-node 14.15.0
 
 LR-Point is een website waarop je reviews voor laptops kan plaatsen wanneer je bent ingelogd.
 Om de reviews te bekijken is er geen account nodig. De website maakt gebruik van cookies, waardoor je onader andere ingelogd kunt blijven voor een bepaalde duur zelfs wanneer je de pagina verlaat.
